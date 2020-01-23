@@ -4,6 +4,11 @@ jobs:
     docker:
       - image: alpine:3.7
     steps:
+      - run:
+          name: install dependencies
+          command: |
+            gem update --system
+            gem install bundler
 
       - run:
           name: Database Setup
@@ -12,4 +17,4 @@ jobs:
 
       - run:
           name: Parallel RSpec
-          command: bin/rails test
+          command: rspec
