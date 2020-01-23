@@ -4,8 +4,12 @@ jobs:
     docker:
       - image: alpine:3.7
     steps:
+
       - run:
-          name: The First Step
+          name: Database Setup
           command: |
-            echo 'Hello World!'
-            echo 'This is the delivery pipeline'
+            bundle exec rake db:create:migrate
+
+      - run:
+          name: Parallel RSpec
+          command: bin/rails test
