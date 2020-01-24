@@ -5,15 +5,23 @@ jobs:
       - image: alpine:3.7
     steps:
       - run:
-          name: install dependencies
-          command: |
-            bundle install
+          name: Which bundler?
+          command: bundle -v
 
       - run:
-          name: Database Setup
-          command: |
-            bundle exec rake db:create:migrate
+          name: Bundle Install
+          command: bundle check || bundle install
 
-      - run:
-          name: Parallel RSpec
-          command: rspec
+      # - save_cache:
+      #     key: rails-demo-bundle-v2-{{ checksum "Gemfile.lock" }}
+      #     paths:
+      #       - vendor/bundle
+
+      # - run:
+      #     name: Database Setup
+      #     command: |
+      #       bundle exec rake db:create:migrate
+
+      # - run:
+      #     name: Parallel RSpec
+      #     command: rspec
